@@ -163,8 +163,8 @@ function Server:initialize()
         local max_unix_socket_path = {linux = 107, other = 103}
         local system = os.execute('[ $(uname) = Linux ]') == 0 and 'linux' or 'other'
         if parsed_net_box_uri.unix:len() > max_unix_socket_path[system] then
-            error(('Net box URI must be <= max Unix domain socket path length (%d chars)')
-                :format(max_unix_socket_path[system]))
+            error(('Unix domain socket path length must be not greater than ' ..
+                   '%d chars'):format(max_unix_socket_path[system]))
         end
     end
     if type(self.net_box_uri) == 'table' then
